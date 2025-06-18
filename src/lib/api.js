@@ -1,7 +1,8 @@
 import axios from "axios";
 import Cookie from "js-cookie";
 
-export const BaseUrlApi = `http://localhost:5000/api`;
+export const BaseUrlApi =
+  process.env.REACT_APP_BASE_API || `http://localhost:5000/api`;
 
 // Add axios interceptor to include token in requests
 axios.interceptors.request.use((config) => {
