@@ -4,15 +4,18 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronsUpDown,
+  CreditCard,
   CreditCardIcon,
   Home,
   LayoutTemplate,
   LogOut,
+  Package,
   Projector,
   Settings,
   Share2,
   Sparkles,
   Trash2,
+  Users,
 } from "lucide-react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
@@ -65,7 +68,7 @@ const LogoSideBar = ({ logoName }) => {
           <Link to={"/dashboard"} className="flex items-center gap-2">
             <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
               <img
-                src={theme === "dark" ? "/logo-dark.svg" : "/logo-light.svg"}
+                src={"/logo-dark.svg"}
                 alt="Logo"
                 className="object-contain size-8"
               />
@@ -103,6 +106,30 @@ export function DashboardSidebar() {
                 url={"/dashboard"}
                 title={"Dashboard"}
               />
+              {user?.role === "admin" && (
+                <>
+                  <MenuItemComponent
+                    Icon={Users}
+                    url="/admin/users"
+                    title="Users"
+                  />
+                  <MenuItemComponent
+                    Icon={CreditCard}
+                    url="/admin/billings"
+                    title="Billings"
+                  />
+                  <MenuItemComponent
+                    Icon={Package}
+                    url="/admin/plans"
+                    title="Plans"
+                  />
+                  <MenuItemComponent
+                    Icon={LayoutTemplate}
+                    url="/admin/templetes"
+                    title="Templates"
+                  />
+                </>
+              )}
               <MenuItemComponent
                 Icon={Projector}
                 url={"/projects"}
@@ -112,11 +139,6 @@ export function DashboardSidebar() {
                 Icon={Share2}
                 url={"/shared"}
                 title={"Shared"}
-              />
-              <MenuItemComponent
-                Icon={LayoutTemplate}
-                url={"/templetes"}
-                title={"Templetes"}
               />
               <MenuItemComponent Icon={Trash2} url={"/trash"} title={"Trash"} />
               <MenuItemComponent
@@ -233,7 +255,9 @@ export function NavUser() {
               >
                 <UserAvatar name={user?.name} image={user?.avatar} />
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold capitalize">{user?.name}</span>
+                  <span className="truncate font-semibold capitalize">
+                    {user?.name}
+                  </span>
                   <span className="truncate text-xs">{user?.email}</span>
                 </div>
                 <ChevronsUpDown className="ml-auto size-4" />

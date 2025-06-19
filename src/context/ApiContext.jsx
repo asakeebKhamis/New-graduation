@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import Cookie from "js-cookie";
 import { BaseUrlApi, ErrorMessage } from "../lib/api";
+import { useAuth } from "./AuthContext";
 
 const APIContext = createContext();
 
@@ -11,6 +12,7 @@ export const useAPI = () => {
 };
 
 export const APIProvider = ({ children }) => {
+  const { user, loading } = useAuth();
   const token = Cookie.get("token");
 
   // -------------AnalyticsUser-------------
@@ -64,8 +66,8 @@ export const APIProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (token) getAllAnalyticsAdmin();
-  }, [token]);
+    if (token && !loading && user?.role === "admin") getAllAnalyticsAdmin();
+  }, [token, loading, user]);
   // -------------AnalyticsSystem-------------(Admin)
   const [loadingAnalyticsSystem, setLoadingAnalyticsSystem] = useState(true);
   const [analyticsSystem, setAnalyticsSystem] = useState([]);
@@ -90,8 +92,8 @@ export const APIProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (token) getAllAnalyticsSystem();
-  }, [token]);
+    if (token && !loading && user?.role === "admin") getAllAnalyticsSystem();
+  }, [token, loading, user]);
 
   // -------------Projects-------------
   const [loadingProjects, setLoadingProjects] = useState(true);

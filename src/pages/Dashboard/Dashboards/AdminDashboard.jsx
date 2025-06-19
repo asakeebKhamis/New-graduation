@@ -115,25 +115,24 @@ export default function AdminDashboard() {
   // Extract data from the provided datasets
   const adminAnalytics = analyticsAdmin?.summary || [];
   const systemStats = analyticsSystem?.dbStats || [];
-  const userRegistrationTrend = analyticsAdmin?.trends.userRegistrations.map(
-    (item) => ({
+  const userRegistrationTrend =
+    analyticsAdmin?.trends?.userRegistrations?.map((item) => ({
       date: item._id.slice(5), // Extract MM-DD from date
       count: item.count,
-    })
-  );
-  const revenueTrend = analyticsAdmin?.trends.revenueTrend.map((item) => ({
+    })) || [];
+  const revenueTrend = analyticsAdmin?.trends?.revenueTrend?.map((item) => ({
     date: item._id.slice(5),
     revenue: item.revenue,
     count: item.count,
   }));
   const topTemplates = analyticsAdmin?.insights?.topTemplates || [];
   const userActivity =
-    analyticsAdmin?.insights?.userActivity.map((item) => ({
+    analyticsAdmin?.insights?.userActivity?.map((item) => ({
       type: item._id.replace("_", " "),
       count: item.count,
     })) || [];
   const planPopularity =
-    analyticsAdmin?.insights.planPopularity.map((item) => ({
+    analyticsAdmin?.insights?.planPopularity?.map((item) => ({
       name: item._id,
       count: item.count,
       revenue: item.revenue,
