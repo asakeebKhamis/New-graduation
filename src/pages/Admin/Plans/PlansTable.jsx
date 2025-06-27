@@ -152,7 +152,7 @@ export default function PlansTable() {
   const createPlan = async (planData) => {
     try {
       const { data } = await axios.post(`${BaseUrlApi}/plans`, planData);
-      setPlans([...plans, data.data]);
+      loadPlans();
       toast.success("Plan created successfully");
     } catch (error) {
       toast.error(ErrorMessage(error));
@@ -277,11 +277,13 @@ export default function PlansTable() {
   );
 
   if (loading) {
-    return <div className="space-y-1">
-      <Skeleton className={"w-full h-16 rounded-b-none"} />
-      <Skeleton className={"w-full h-80 rounded-none"} />
-      <Skeleton className={"w-full h-16 rounded-t-none"} />
-    </div>;
+    return (
+      <div className="space-y-1">
+        <Skeleton className={"w-full h-16 rounded-b-none"} />
+        <Skeleton className={"w-full h-80 rounded-none"} />
+        <Skeleton className={"w-full h-16 rounded-t-none"} />
+      </div>
+    );
   }
 
   return (
